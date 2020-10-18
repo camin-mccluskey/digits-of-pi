@@ -48,28 +48,34 @@ function resolveCollision(block1, block2) {
 }
 
 function draw() {
+  // background rendering
   background(220);
+  textSize(20)
+  text("How many digits of Pi?", 380, 30)
+  text("Collisions: " + counter, 10, 30);
+
+  // don't clack on every collision
+  let shouldClack = false;
   for (i = 0; i < timeSteps; i++) {
     if (block1.isColliding(block2)) {
       counter += 1;
       resolveCollision(block1, block2);
-      clack.play();
+      shouldClack = true;
     }
 
     if (block1.hitWall()) {
       counter += 1;
       block1.updateVelocity(-block1.velocity);
-      clack.play();
+      shouldClack = true;
     }
     textSize(32);
     block1.update();
     block2.update();
   }
-  textSize(20)
-  text("How many digits of Pi?", 380, 30)
-  text("Collisions: " + counter, 10, 30);
+
   block1.show();
   block2.show();
+
   // label blocks with relative weight
   textSize(12);
   push();
@@ -77,4 +83,9 @@ function draw() {
   text("1kg", block1.x + block1.width / 2, height - block1.width);
   text(block2.mass.toLocaleString() + "kg", block2.x + block2.width / 2, height - block2.width / 2);
   pop();
+  
+  if (shouldClack) {
+    clack.play();
+    shouldClack = false;
+  }
 }
