@@ -1,12 +1,7 @@
 let block1;
 let block2;
 let counter;
-let clack;
 let timeSteps = 1;
-
-function preload() {
-  clack = loadSound('clack.wav');
-}
 
 function setup() {
   createCanvas(600, 600);
@@ -54,19 +49,15 @@ function draw() {
   text("How many digits of Pi?", 380, 30)
   text("Collisions: " + counter, 10, 30);
 
-  // don't clack on every collision
-  let shouldClack = false;
   for (i = 0; i < timeSteps; i++) {
     if (block1.isColliding(block2)) {
       counter += 1;
       resolveCollision(block1, block2);
-      shouldClack = true;
     }
 
     if (block1.hitWall()) {
       counter += 1;
       block1.updateVelocity(-block1.velocity);
-      shouldClack = true;
     }
     textSize(32);
     block1.update();
@@ -83,9 +74,4 @@ function draw() {
   text("1kg", block1.x + block1.width / 2, height - block1.width);
   text(block2.mass.toLocaleString() + "kg", block2.x + block2.width / 2, height - block2.width / 2);
   pop();
-  
-  if (shouldClack) {
-    clack.play();
-    shouldClack = false;
-  }
 }
