@@ -5,7 +5,7 @@ let clack;
 let timeSteps = 1;
 
 function preload() {
-  clack = loadSound('clack.mp3');
+  clack = loadSound('clack.wav');
 }
 
 function setup() {
