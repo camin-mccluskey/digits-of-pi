@@ -1,7 +1,12 @@
 let block1;
 let block2;
 let counter;
+let clack;
 let timeSteps = 1;
+
+function preload() {
+  clack = loadSound('clack.mp3');
+}
 
 function setup() {
   createCanvas(600, 600);
@@ -48,11 +53,13 @@ function draw() {
     if (block1.isColliding(block2)) {
       counter += 1;
       resolveCollision(block1, block2);
+      clack.play();
     }
 
     if (block1.hitWall()) {
       counter += 1;
       block1.updateVelocity(-block1.velocity);
+      clack.play();
     }
     textSize(32);
     block1.update();
